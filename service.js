@@ -1,19 +1,11 @@
 
-exports.addNumbers = function (req, res) {
-    if (req.method === 'POST') {
-        addJSONNumbers(req, res);
-    } else if (req.method === 'GET') {
-        addQueryNumbers(req, res);
-    }
-}
-
 exports.invalidRequest = function (req, res) {
     res.statusCode = 404;
     res.setHeader('Content-Type', 'text/plain');
     res.end('Invalid Request');
 };
 
-function addJSONNumbers(req, res){
+exports.addJSONNumbers = function (req, res){
         body = '';
 
         req.on('data', function (chunk) {
@@ -42,7 +34,7 @@ function addJSONNumbers(req, res){
         return res;
 }
 
-function addQueryNumbers(req, res){
+exports.addQueryNumbers = function (req, res){
     const baseUrl = 'http://' + req.headers.host + '/';
     const reqUrl = new URL(req.url, baseUrl);
     console.log('a :', reqUrl.searchParams.get('a'), 'b :', reqUrl.searchParams.get('b'))
